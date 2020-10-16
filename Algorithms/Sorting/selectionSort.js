@@ -14,6 +14,7 @@ function sort(array) {
             array[i] = array[i] - array[lowest]
         }
     }
+    return array;
 }
 
 module.export = {
