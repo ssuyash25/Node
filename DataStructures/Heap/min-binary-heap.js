@@ -1,4 +1,4 @@
-class MaxBinaryHeap {
+class MinBinaryHeap {
     constructor(){
          this.values = [];
     }
@@ -13,7 +13,7 @@ class MaxBinaryHeap {
     bubbleUp(){
         let index = this.values.length -1
         let parentIndex = Math.floor((index-1)/2)
-        while(this.values[parentIndex] < this.values[index]){
+        while(this.values[parentIndex] > this.values[index]){
             // console.log('Swapping values', this.values[parentIndex], '    ', this.values[index] )
             const swap = this.values[parentIndex]
             this.values[parentIndex] = this.values[index]
@@ -23,7 +23,7 @@ class MaxBinaryHeap {
         }
     }
 
-    extractMax(){
+    extractMin(){
         const max =  this.values[0];  
         const end = this.values.pop();
         if(this.values.length > 0){
@@ -39,11 +39,11 @@ class MaxBinaryHeap {
             let parentIndex
             let leftChild = (2*index) + 1
             let rightChild = (2*index) + 2
-            if(this.values[leftChild] > element && this.values[rightChild] > element) // swap with the largest
-            parentIndex = this.values[leftChild] > this.values[rightChild] ? leftChild : rightChild
-            else if(this.values[leftChild] > element )
+            if(this.values[leftChild] < element && this.values[rightChild] < element) // swap with the largest
+            parentIndex = this.values[leftChild] < this.values[rightChild] ? leftChild : rightChild
+            else if(this.values[leftChild] < element )
             parentIndex = leftChild
-            else if( this.values[rightChild] > element)
+            else if( this.values[rightChild] < element)
             parentIndex = rightChild
             else
             break;
@@ -55,4 +55,4 @@ class MaxBinaryHeap {
     }
 }
 
-const maxBinaryHeap = new MaxBinaryHeap()
+const minBinaryHeap = new MinBinaryHeap()
