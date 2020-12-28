@@ -24,7 +24,7 @@ class PreorityQueue {
         while(index > 0){
             let parentIndex = Math.floor((index-1)/2);
             let parent = this.values[parentIndex];
-            if(element.preority <= parent.preority)
+            if(element.preority >= parent.preority)
             break;
             this.values[parentIndex] = element;
             this.values[index] = parent;
@@ -37,16 +37,16 @@ class PreorityQueue {
         const end = this.values.pop();
         if(this.values.length > 0){
         this.values[0] = end;          // Swap first with the last index
-        this.sinkDown(end);
+        this.sinkDown();
         }
         return max;
     }
 
-    sinkDown(element){
+    sinkDown(){
         let index = 0
         let length = this.length;
+        let element = this.values[0]
         while(true){
-            let parentIndex
             let leftChildIdx = (2*index) + 1
             let rightChildIdx = (2*index) + 2
             let leftChild,rightChild
@@ -54,25 +54,26 @@ class PreorityQueue {
 
             if(leftChildIdx < length) {
                 leftChild = this.values[leftChildIdx];
-                if(leftChild.preority > element.preority){
+                if(leftChild.preority < element.preority){
                     swap = leftChildIdx;
                 }
             }
             if(rightChildIdx < length) {
                 rightChild = this.values[rightChildIdx];
-                if((swap === null && rightChild.preority > element.preority) ||
-                (swap !==null && rightChild.preority > leftChild.preority)){
+                if((swap === null && rightChild.preority < element.preority) ||
+                (swap !==null && rightChild.preority < leftChild.preority)){
                     swap = rightChildIdx;
                 }
             }
             if(swap === null) break;
             this.values[index] = this.values[swap]
-            this.values[parentIndex] = element
-            index = parentIndex
+            this.values[swap] = element
+            index = swap
         }
     }
 }
 
+// Testing
 const preorityQueue = new PreorityQueue()
 
 preorityQueue.enQueue("common cold", 5)
@@ -80,3 +81,8 @@ preorityQueue.enQueue("fever", 4)
 preorityQueue.enQueue("Infulenza", 3)
 preorityQueue.enQueue("Skin Infection", 2)
 console.log(preorityQueue.enQueue("Corona", 1))
+console.log(preorityQueue.deQueue())
+console.log(preorityQueue.deQueue())
+console.log(preorityQueue.deQueue())
+console.log(preorityQueue.deQueue())
+console.log(preorityQueue.deQueue())
